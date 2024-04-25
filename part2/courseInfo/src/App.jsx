@@ -1,8 +1,12 @@
 
-const Course = (props) => {
-  const course = props
+const Course = ({course}) => {
   return (
-    <h1>{course.name}</h1>
+    <div>
+      <h1>{course.name}</h1>
+        {course.parts.map((partes) => (
+          <p>{partes.name} {partes.exercises}</p>
+        ))}
+    </div>
   )
 }
 
@@ -23,7 +27,7 @@ const App = () => {
       },
       {
         name: 'State of a component',
-        exercises3: 14,
+        exercises: 14,
         id: 3
       }
     ]
