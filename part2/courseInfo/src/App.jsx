@@ -4,7 +4,7 @@ const Course = ({course}) => {
     <div>
       <h1>{course.name}</h1>
         {course.parts.map((partes) => (
-          <p>{partes.name} {partes.exercises}</p>
+          <p key={partes.id}>{partes.name} {partes.exercises}</p>
         ))}
     </div>
   )
@@ -33,7 +33,7 @@ const App = () => {
     ]
   }
 
-  return <Course course={course} />
+  return <Course key={course.id} course={course} />
 }
 
 export default App
