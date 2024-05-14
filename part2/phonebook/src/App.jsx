@@ -27,7 +27,24 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    personsServices
+
+    const repeated = persons.find(person => person.name === personsObject.name) 
+    if (repeated != null) {
+      const changedPerson = { ...repeated, number: newNumber}
+        console.log(changedPerson.name.toLocaleLowerCase())
+          if(confirm(`${personsObject.name} is already added to phonebook, replace the old number with a new one?`)) {
+            personsServices
+              .update(changedPerson.id, changedPerson)
+              .then(response => {
+                const indexOfChangedPerson = persons.findIndex((person) => person.id == response.data.id)
+                persons.splice(indexOfChangedPerson, 1, response.data)
+                filteredPersons.splice(indexOfChangedPerson, 1, response.data)
+                setNewName('')
+                setNewNumber('')
+              })
+          }
+    } else {
+      personsServices
       .create(personsObject)
       .then(response => {
         setPersons(persons.concat(response.data))
@@ -35,6 +52,7 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
+    }
   }
 
   const handleNameChange = (event) => {
@@ -49,12 +67,25 @@ const App = () => {
     setFilteredPersons([])
     let aux = []
     persons.map((person) => {
-      if (person.name.toLowerCase().includes(event.target.value)) {
+      if (person.name.toLowerCase().includes(event.target.value.toLocaleLowerCase())) {
         aux.push(person)
       } 
     })
     setFilteredPersons(aux)
     setFindName(event.target.value)
+  }
+
+  const erase = (person) => {
+    if (confirm(`Delete ${person.name} ?`)) {
+      console.log(`${person.name} deleted.`)
+      personsServices
+        .erase(person.id, person)
+        .then(response => {
+          console.log(response.data)
+          setPersons(persons.filter((person) => person.name != response.data.name))
+          setFilteredPersons(filteredPersons.filter((filteredPerson) => filteredPerson.name != response.data.name))
+        })
+    }
   }
 
   return (
@@ -69,7 +100,12 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      <Persons key={filteredPersons.id} persons={filteredPersons} />
+      {filteredPersons.map((person) => 
+        <Persons 
+          key={person.id} 
+          person={person}
+          erase={() => erase(person)}/>
+      )}
     </div>
     
   )
