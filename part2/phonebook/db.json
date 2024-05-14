@@ -104,6 +104,16 @@
       "id": "deca",
       "name": "Gregory Asomov",
       "number": "111-1111111"
+    },
+    {
+      "id": "f805",
+      "name": "Albus Dumbledore",
+      "number": "989-876567"
+    },
+    {
+      "id": "9a74",
+      "name": "Giny Weasly",
+      "number": "343-321123"
     }
   ]
 }

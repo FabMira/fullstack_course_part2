@@ -3,6 +3,7 @@ import personsServices from "./services/persons"
 import Persons from "./components/persons"
 import PersonForm from "./components/PersonForm"
 import Filter from "./components/Filter"
+import Notification from "./components/notification"
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [findName, setFindName] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState('someone was added...')
 
   useEffect(() => {
     personsServices
@@ -41,6 +43,10 @@ const App = () => {
                 filteredPersons.splice(indexOfChangedPerson, 1, response.data)
                 setNewName('')
                 setNewNumber('')
+                setNotificationMessage(`Updated ${response.data.name}'s number`)
+                setTimeout(() => {
+                  setNotificationMessage(null)
+                }, 5000)
               })
           }
     } else {
@@ -51,6 +57,10 @@ const App = () => {
         setFilteredPersons(filteredPersons.concat(response.data))
         setNewName('')
         setNewNumber('')
+        setNotificationMessage(`Added ${response.data.name}`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       })
     }
   }
@@ -91,6 +101,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={notificationMessage} />
 
       <Filter findName={findName} handleFindName={handleFindName} />
 
