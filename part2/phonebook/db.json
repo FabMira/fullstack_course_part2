@@ -8,7 +8,7 @@
     {
       "id": "2",
       "name": "Ada Lovelace",
-      "number": "090-8887654"
+      "number": "030-223456"
     },
     {
       "id": "3",
@@ -46,11 +46,6 @@
       "number": "276-240560"
     },
     {
-      "id": "667c6531-8f88-4f09-aebc-104417d42e02",
-      "name": "Weber Battle",
-      "number": "621-466004"
-    },
-    {
       "id": "52f99bb2-0bf7-419d-ace7-7643ca04e833",
       "name": "Barron Dillon",
       "number": "504-273489"
@@ -69,11 +64,6 @@
       "id": "d6e3fb3c-559f-4d85-92e4-cbacce27755e",
       "name": "Bridgette Washington",
       "number": "656-332041"
-    },
-    {
-      "id": "a8e8351f-ccc6-4b78-b13b-ca816382a2fc",
-      "name": "Anastasia Hampton",
-      "number": "197-720859"
     },
     {
       "id": "2536641d-20a0-4515-a58f-130a9c31dd05",
@@ -101,11 +91,6 @@
       "number": "329-448895"
     },
     {
-      "id": "deca",
-      "name": "Gregory Asomov",
-      "number": "111-1111111"
-    },
-    {
       "id": "f805",
       "name": "Albus Dumbledore",
       "number": "989-876567"
@@ -114,6 +99,21 @@
       "id": "9a74",
       "name": "Giny Weasly",
       "number": "343-321123"
+    },
+    {
+      "id": "bcc8",
+      "name": "Adele Pumpernickle",
+      "number": "099-878998"
+    },
+    {
+      "id": "04bd",
+      "name": "Minerva Mcgonnagall",
+      "number": "989-876567"
+    },
+    {
+      "id": "a8d7",
+      "name": "Anastasia Hampton",
+      "number": "090-998766"
     }
   ]
 }

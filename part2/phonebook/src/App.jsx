@@ -4,6 +4,7 @@ import Persons from "./components/persons"
 import PersonForm from "./components/PersonForm"
 import Filter from "./components/Filter"
 import Notification from "./components/notification"
+import sortNames from "./services/sortNames"
 
 const App = () => {
 
@@ -13,13 +14,15 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [findName, setFindName] = useState('')
   const [notificationMessage, setNotificationMessage] = useState('someone was added...')
+  const [notificationClass, setNotificationClass] = useState('notification')
 
   useEffect(() => {
     personsServices
       .getAll()
       .then(response => {
-        setPersons(response.data)
-        setFilteredPersons(response.data)
+        const personsSorted = sortNames(response.data)
+        setPersons(personsSorted)
+        setFilteredPersons(personsSorted)
       })
   }, [])
 
@@ -48,16 +51,25 @@ const App = () => {
                   setNotificationMessage(null)
                 }, 5000)
               })
+              .catch(error => {
+                setNotificationMessage(
+                  `Information of ${personsObject.name} has already been removed from server`
+                )
+                setNotificationClass('error')
+              })
           }
     } else {
       personsServices
       .create(personsObject)
       .then(response => {
-        setPersons(persons.concat(response.data))
-        setFilteredPersons(filteredPersons.concat(response.data))
+        const personsNew = persons.concat(response.data)
+        const personsSorted = sortNames(personsNew)
+        setPersons(personsSorted)
+        setFilteredPersons(personsSorted)
         setNewName('')
         setNewNumber('')
         setNotificationMessage(`Added ${response.data.name}`)
+        setNotificationClass('notification')
         setTimeout(() => {
           setNotificationMessage(null)
         }, 5000)
@@ -102,7 +114,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={notificationMessage} />
+      <Notification className={notificationClass} message={notificationMessage} />
 
       <Filter findName={findName} handleFindName={handleFindName} />
 
