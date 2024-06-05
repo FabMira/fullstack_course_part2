@@ -9,20 +9,24 @@ import sortNames from "./services/sortNames"
 const App = () => {
 
   const [persons, setPersons] = useState([])
-  const [filteredPersons, setFilteredPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [findName, setFindName] = useState('')
-  const [notificationMessage, setNotificationMessage] = useState('someone was added...')
+  const [notificationMessage, setNotificationMessage] = useState(null)
   const [notificationClass, setNotificationClass] = useState('notification')
+  const [showAll, setShowAll] = useState(true)
+
+  const personsToShow = showAll 
+    ? persons
+    : persons.filter(person => person.name.toLocaleLowerCase().includes(findName.toLowerCase()))
 
   useEffect(() => {
     personsServices
       .getAll()
       .then(response => {
         const personsSorted = sortNames(response.data)
+        console.log(personsSorted);
         setPersons(personsSorted)
-        setFilteredPersons(personsSorted)
       })
   }, [])
 
@@ -43,7 +47,6 @@ const App = () => {
               .then(response => {
                 const indexOfChangedPerson = persons.findIndex((person) => person.id == response.data.id)
                 persons.splice(indexOfChangedPerson, 1, response.data)
-                filteredPersons.splice(indexOfChangedPerson, 1, response.data)
                 setNewName('')
                 setNewNumber('')
                 setNotificationMessage(`Updated ${response.data.name}'s number`)
@@ -65,7 +68,6 @@ const App = () => {
         const personsNew = persons.concat(response.data)
         const personsSorted = sortNames(personsNew)
         setPersons(personsSorted)
-        setFilteredPersons(personsSorted)
         setNewName('')
         setNewNumber('')
         setNotificationMessage(`Added ${response.data.name}`)
@@ -86,26 +88,21 @@ const App = () => {
   }
 
   const handleFindName = (event) => {
-    setFilteredPersons([])
-    let aux = []
-    persons.map((person) => {
-      if (person.name.toLowerCase().includes(event.target.value.toLocaleLowerCase())) {
-        aux.push(person)
-      } 
-    })
-    setFilteredPersons(aux)
-    setFindName(event.target.value)
+    if (event.target.value == null) {
+      setShowAll(true)
+    } else {
+      setFindName(event.target.value)
+      setShowAll(false)
+    }
   }
 
   const erase = (person) => {
     if (confirm(`Delete ${person.name} ?`)) {
-      console.log(`${person.name} deleted.`)
       personsServices
         .erase(person.id, person)
         .then(response => {
           console.log(response.data)
           setPersons(persons.filter((person) => person.name != response.data.name))
-          setFilteredPersons(filteredPersons.filter((filteredPerson) => filteredPerson.name != response.data.name))
         })
     }
   }
@@ -124,7 +121,7 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      {filteredPersons.map((person) => 
+      {personsToShow.map((person) => 
         <Persons 
           key={person.id} 
           person={person}

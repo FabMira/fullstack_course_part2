@@ -1,0 +1,26 @@
+body{
+    background:whitesmoke ;
+}
+
+h1 {
+    font-weight: 800;
+
+}
+
+p {
+    padding: auto;
+    margin: 0.2%;
+}
+
+span, h1, h2, h3, p {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+}
+
+.negrita {
+    font-weight: 800;
+}
+
+.fi {
+    width: 240px;
+    height: 240px;
+}
