@@ -1,6 +1,8 @@
-const ListOfCountries = ({id: key, name}) => {
+const ListOfCountries = ({id: key, name, handleClick}) => {
         return (
-                <p key={key}>{name}</p>
+            <div key={key}>
+                {name} <button className="button" onClick={() => handleClick(name)}>Show</button>
+            </div>
         )
     }
 

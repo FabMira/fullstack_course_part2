@@ -57,6 +57,11 @@ const App = () => {
     if (event.target.value == '') {setList([])}
   }
 
+  const handleClick = (name) => {
+    setList([name])
+    setCountry(name)
+  }
+
   return (
     <div>
       {allCountries.length === 0
@@ -66,7 +71,7 @@ const App = () => {
       {list.length == 1  && <ShowCountry country={countryObject} />}
       {(list.length > 1 && list.length <= 10) 
       && list.sort().map((country) =>
-        <ListOfCountries key={allCountries.indexOf(country)} name={country} />)}
+        <ListOfCountries key={allCountries.indexOf(country)} name={country} handleClick={handleClick} />)}
       {list.length > 10 ? 'Too many matches, specify another filter' : ''}
     </div>
   )

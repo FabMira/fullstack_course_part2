@@ -16,6 +16,23 @@ span, h1, h2, h3, p {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
 }
 
+.button {
+    background-color:darkgray; /* Green */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 8px;
+    margin-top: 2.5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .button:active {
+    background-color: gray;
+    border: 1px solid darkgray;
+  }
+
 .negrita {
     font-weight: 800;
 }
