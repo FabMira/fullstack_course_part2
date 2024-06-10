@@ -25,7 +25,6 @@ const App = () => {
       .getAll()
       .then(response => {
         const personsSorted = sortNames(response.data)
-        console.log(personsSorted);
         setPersons(personsSorted)
       })
   }, [])
@@ -101,7 +100,6 @@ const App = () => {
       personsServices
         .erase(person.id, person)
         .then(response => {
-          console.log(response.data)
           setPersons(persons.filter((person) => person.name != response.data.name))
         })
     }
